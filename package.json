@@ -1,0 +1,38 @@
+{
+  "name": "aggro-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.ts,.tsx",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@maplibre/maplibre-gl-geocoder": "^1.5",
+    "@turf/area": "^7.1",
+    "@vicons/ionicons5": "^0.12",
+    "axios": "^1.7",
+    "keycloak-js": "^24.0",
+    "maplibre-gl": "^4.1",
+    "naive-ui": "^2.38",
+    "pinia": "^2.1",
+    "vue": "^3.4",
+    "vue-router": "^4.3"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^7.0",
+    "@typescript-eslint/parser": "^7.0",
+    "@vitejs/plugin-vue": "^5.0",
+    "eslint": "^8.57",
+    "eslint-plugin-vue": "^9.24",
+    "prettier": "^3.2",
+    "typescript": "^5.4",
+    "vite": "^5.2",
+    "vue-tsc": "^2.0"
+  }
+}
