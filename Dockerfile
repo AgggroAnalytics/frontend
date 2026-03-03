@@ -1,5 +1,8 @@
 FROM node:20-alpine AS builder
 
+ARG VITE_KEYCLOAK_URL=""
+ENV VITE_KEYCLOAK_URL=${VITE_KEYCLOAK_URL}
+
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install

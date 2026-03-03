@@ -23,6 +23,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            VITE_KEYCLOAK_URL=${{ vars.VITE_KEYCLOAK_URL }}
           tags: |
             ghcr.io/agggroanalytics/frontend:latest
             ghcr.io/agggroanalytics/frontend:sha-${{ github.sha }}
