@@ -14,7 +14,6 @@ const router = useRouter();
 const fieldStore = useFieldStore();
 const orgStore = useOrgStore();
 const { isAdmin } = useRole();
-console.log(isAdmin.value)
 
 const search = ref('');
 

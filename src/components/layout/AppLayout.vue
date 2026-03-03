@@ -52,37 +52,19 @@ function handleLogout() {
 
 <template>
   <n-layout has-sider style="min-height: 100vh">
-    <n-layout-sider
-      v-if="authStore.isAuthenticated"
-      bordered
-      :width="220"
-      content-style="display: flex; flex-direction: column; height: 100%"
-    >
+    <n-layout-sider v-if="authStore.isAuthenticated" bordered :width="220"
+      content-style="display: flex; flex-direction: column; height: 100%">
       <div style="padding: 20px 16px 8px; font-size: 20px; font-weight: 700; letter-spacing: -0.5px">
-        Aggro
+        AggroV2
       </div>
-      <n-menu
-        :value="menuKey"
-        :options="menuOptions"
-        @update:value="handleMenuUpdate"
-        style="flex: 1"
-      />
+      <n-menu :value="menuKey" :options="menuOptions" @update:value="handleMenuUpdate" style="flex: 1" />
     </n-layout-sider>
     <n-layout>
-      <n-layout-header
-        v-if="authStore.isAuthenticated"
-        bordered
-        style="padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between"
-      >
+      <n-layout-header v-if="authStore.isAuthenticated" bordered
+        style="padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between">
         <n-space align="center">
-          <n-select
-            v-if="orgOptions.length > 0"
-            :value="orgStore.currentOrgId"
-            :options="orgOptions"
-            style="width: 240px"
-            placeholder="Организация"
-            @update:value="handleOrgChange"
-          />
+          <n-select v-if="orgOptions.length > 0" :value="orgStore.currentOrgId" :options="orgOptions"
+            style="width: 240px" placeholder="Организация" @update:value="handleOrgChange" />
         </n-space>
         <n-space align="center" :size="16">
           <n-text v-if="authStore.user">{{ authStore.user.display_name }}</n-text>
