@@ -33,8 +33,13 @@ export const useReportStore = defineStore('report', () => {
   }
 
   async function downloadReport(orgId: string, fieldId: string, reportId: string) {
-    const url = await reportsApi.getDownloadUrl(orgId, fieldId, reportId);
-    window.open(url, '_blank');
+    const blob = await reportsApi.downloadReport(orgId, fieldId, reportId);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `report-${reportId}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   return {

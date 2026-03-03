@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import Keycloak from 'keycloak-js';
 import type { User, Organization, OrgMember, OrgRole } from '@/types';
 import { getProfile } from '@/api/auth';
+import { useOrgStore } from '@/stores/org';
 
 const TOKEN_REFRESH_INTERVAL_MS = 30_000;
 const TOKEN_MIN_VALIDITY_SEC = 60;
@@ -42,15 +43,21 @@ export const useAuthStore = defineStore('auth', () => {
   async function loadProfile() {
     const profile = await getProfile();
     user.value = profile.user;
-    organizations.value = profile.organizations;
-    memberships.value = profile.memberships;
+    organizations.value = profile.organizations ?? [];
+    memberships.value = profile.memberships ?? [];
+
+    const orgStore = useOrgStore();
+    orgStore.organizations = organizations.value;
+    if (!orgStore.currentOrgId && organizations.value.length > 0) {
+      orgStore.setCurrentOrg(organizations.value[0].id);
+    }
   }
 
   async function init() {
     isLoading.value = true;
     try {
       const kc = new Keycloak({
-        url: import.meta.env.VITE_KEYCLOAK_URL || '/auth',
+        url: import.meta.env.VITE_KEYCLOAK_URL || 'http://localhost:8180',
         realm: 'aggro',
         clientId: 'aggro-frontend',
       });

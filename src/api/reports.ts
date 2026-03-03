@@ -19,12 +19,14 @@ export function listReports(orgId: string, fieldId: string): Promise<Report[]> {
   return client.get<Report[]>(`/orgs/${orgId}/fields/${fieldId}/reports`).then((r) => r.data);
 }
 
-export function getDownloadUrl(
+export function downloadReport(
   orgId: string,
   fieldId: string,
   reportId: string,
-): Promise<string> {
+): Promise<Blob> {
   return client
-    .get<string>(`/orgs/${orgId}/fields/${fieldId}/reports/${reportId}/download`)
+    .get(`/orgs/${orgId}/fields/${fieldId}/reports/${reportId}/download`, {
+      responseType: 'blob',
+    })
     .then((r) => r.data);
 }

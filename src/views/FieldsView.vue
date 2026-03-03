@@ -14,6 +14,7 @@ const router = useRouter();
 const fieldStore = useFieldStore();
 const orgStore = useOrgStore();
 const { isAdmin } = useRole();
+console.log(isAdmin.value)
 
 const search = ref('');
 
@@ -72,12 +73,7 @@ watch(() => orgStore.currentOrgId, load);
   <n-space justify="space-between" align="center" style="margin-bottom: 16px">
     <n-h1 style="margin: 0">Поля</n-h1>
     <n-space align="center" :size="12">
-      <n-input
-        v-model:value="search"
-        placeholder="Поиск по названию..."
-        clearable
-        style="width: 260px"
-      />
+      <n-input v-model:value="search" placeholder="Поиск по названию..." clearable style="width: 260px" />
       <n-button v-if="isAdmin" type="primary" @click="goToCreate">
         Создать поле
       </n-button>
@@ -87,20 +83,11 @@ watch(() => orgStore.currentOrgId, load);
   <LoadingState v-if="fieldStore.isLoading" message="Загрузка полей..." />
 
   <template v-else-if="fieldStore.fields.length === 0">
-    <EmptyState
-      title="Нет полей"
-      description="Создайте первое поле для начала работы"
-      :action-label="isAdmin ? 'Создать поле' : undefined"
-      @action="goToCreate"
-    />
+    <EmptyState title="Нет полей" description="Создайте первое поле для начала работы"
+      :action-label="isAdmin ? 'Создать поле' : undefined" @action="goToCreate" />
   </template>
 
-  <n-data-table
-    v-else
-    :columns="columns"
-    :data="filteredFields"
-    :row-props="(row: Field) => ({ style: 'cursor: pointer', onClick: () => handleRowClick(row) })"
-    :bordered="false"
-    striped
-  />
+  <n-data-table v-else :columns="columns" :data="filteredFields"
+    :row-props="(row: Field) => ({ style: 'cursor: pointer', onClick: () => handleRowClick(row) })" :bordered="false"
+    striped />
 </template>
